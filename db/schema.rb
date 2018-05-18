@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510044304) do
+ActiveRecord::Schema.define(version: 20180518150631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "partnerships", force: :cascade do |t|
+    t.bigint "vendor_shop_id"
+    t.bigint "supplier_shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["supplier_shop_id"], name: "index_partnerships_on_supplier_shop_id"
+    t.index ["vendor_shop_id"], name: "index_partnerships_on_vendor_shop_id"
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string "shopify_domain", null: false
@@ -23,4 +32,6 @@ ActiveRecord::Schema.define(version: 20180510044304) do
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
+  add_foreign_key "partnerships", "shops", column: "supplier_shop_id"
+  add_foreign_key "partnerships", "shops", column: "vendor_shop_id"
 end
