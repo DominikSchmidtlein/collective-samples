@@ -1,6 +1,7 @@
 class Partnership < ApplicationRecord
   belongs_to :vendor_shop, class_name: 'Shop'
   belongs_to :supplier_shop, class_name: 'Shop'
+  has_and_belongs_to_many :samples
 
   validates_uniqueness_of :vendor_shop, scope: :supplier_shop
   validate :check_partnership_with_self

@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-shop1 = Shop.create(shopify_domain: 'shop1.com', shopify_token: 'abc')
-shop2 = Shop.create(shopify_domain: 'shop2.com', shopify_token: 'def')
-shop1.vendor_partnerships.create(vendor_shop: shop2)
+supplier = Shop.create(shopify_domain: 'supplier.com', shopify_token: 'abc')
+vendor = Shop.create(shopify_domain: 'vendor.com', shopify_token: 'def')
+
+partnership = supplier.vendor_partnerships.create(vendor_shop: vendor)
+
+partnership.samples.create(shopify_product_id: 123456789)
+partnership.samples.create(shopify_product_id: 987654321)
