@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20180519232459) do
   enable_extension "plpgsql"
 
   create_table "partnerships", force: :cascade do |t|
-    t.bigint "vendor_shop_id"
-    t.bigint "supplier_shop_id"
+    t.bigint "vendor_shop_id", null: false
+    t.bigint "supplier_shop_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["supplier_shop_id"], name: "index_partnerships_on_supplier_shop_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180519232459) do
   end
 
   create_table "samples", force: :cascade do |t|
-    t.integer "shopify_product_id"
+    t.bigint "shopify_product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shopify_product_id"], name: "index_samples_on_shopify_product_id", unique: true

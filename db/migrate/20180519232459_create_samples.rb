@@ -1,7 +1,7 @@
 class CreateSamples < ActiveRecord::Migration[5.1]
   def change
     create_table :samples do |t|
-      t.integer :shopify_product_id
+      t.bigint :shopify_product_id, null: false
 
       t.timestamps
     end
