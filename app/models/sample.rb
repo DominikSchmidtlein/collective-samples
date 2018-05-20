@@ -1,3 +1,3 @@
 class Sample < ApplicationRecord
-  validate_uniqueness_of :shopify_product_id
+  validates_uniqueness_of :shopify_product_id
 end
