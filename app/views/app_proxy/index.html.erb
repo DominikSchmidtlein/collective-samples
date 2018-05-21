@@ -1,25 +1,28 @@
-<h2>App Proxy Page</h2>
-
-<p>Congratulations! You have successfully configured App Proxy for your shopify application.</p>
-<p>Any valid liquid code included in this page will be parsed and rendered by Shopify.</p>
-
+<h1>FREE Samples</h1>
+<% @products.each do |p| %>
+  <div>
+    <%= image_tag(p.image.src, width: '400', height: 'auto') %>
+    <h2><%= p.title %></h2>
+    <p><%= p.body_html %></p>
+    <br>
+  </div>
+<% end %>
 <pre>
 <br>
-	Shops : <%= @shops.to_json %>
+  Shops : <%= @shops.to_json %>
 <br>
-	Params : <%= params.to_json %>
+  Params : <%= params.to_json %>
 <br>
-	Products : <%= @products.to_json %>
+  Products : <%= @products.to_json %>
 
 Your Shop Details:
 <hr>
-	Shop Name 			: {{ shop.name }}
-	myshopify name 			: {{ shop.permanent_domain }}
-	Primary Domain of Shop 		: {{ shop.domain }}
-	Shop URL 			: {{ shop.url }}
-	Shop Currency 			: {{ shop.currency }}
-	No. of products in this shop 	: {{ shop.products_count }}
-
-<br>	
-<hr>	
+  Shop Name       : {{ shop.name }}
+  myshopify name      : {{ shop.permanent_domain }}
+  Primary Domain of Shop    : {{ shop.domain }}
+  Shop URL      : {{ shop.url }}
+  Shop Currency       : {{ shop.currency }}
+  No. of products in this shop  : {{ shop.products_count }}
+<br>
+<hr>
 </pre>
