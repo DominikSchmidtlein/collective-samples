@@ -4,17 +4,12 @@
     <%= image_tag(p.image.src, width: '400', height: 'auto') %>
     <h2><%= p.title %></h2>
     <p><%= p.body_html %></p>
-    <br>
   </div>
+  <br>
 <% end %>
 <pre>
-<br>
-  Shops : <%= @shops.to_json %>
-<br>
   Params : <%= params.to_json %>
 <br>
-  Products : <%= @products.to_json %>
-
 Your Shop Details:
 <hr>
   Shop Name       : {{ shop.name }}

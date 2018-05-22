@@ -2,13 +2,13 @@ class AppProxyController < ApplicationController
   include ShopifyApp::AppProxyVerification
 
   def index
-    @shops = Shop.all
+    sample_order = SampleOrder.find(params.require(:sample_order_id))
     @products = []
 
-    shop = Shop.find_by(shopify_domain: params[:shop])
+    shop = sample_order.shop
     shop.supplier_partnerships.each do |partnership|
-      supplier_shop_id = partnership.supplier_shop_id
-      supplier_session = ShopifyApp::SessionRepository.retrieve(supplier_shop_id)
+      supplier_id = partnership.supplier_id
+      supplier_session = ShopifyApp::SessionRepository.retrieve(supplier_id)
       ShopifyAPI::Base.activate_session(supplier_session)
 
       @products += partnership.samples.map do |sample|
