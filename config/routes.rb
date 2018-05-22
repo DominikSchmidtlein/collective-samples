@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'
 
+  resources :sample_orders, only: [:create]
+
   namespace :app_proxy do
     root action: 'index'
     # simple routes without a specified controller will go to AppProxyController
