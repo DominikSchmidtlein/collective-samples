@@ -9,7 +9,10 @@
 supplier = Shop.create(shopify_domain: 'supplier.com', shopify_token: 'abc')
 vendor = Shop.create(shopify_domain: 'vendor.com', shopify_token: 'def')
 
-partnership = supplier.vendor_partnerships.create(vendor_shop: vendor)
+partnership = supplier.vendor_partnerships.create(vendor: vendor)
 
-partnership.samples.create(shopify_product_id: 123456789)
-partnership.samples.create(shopify_product_id: 987654321)
+sample1 = partnership.samples.create(shopify_product_id: 123456789)
+sample2 = partnership.samples.create(shopify_product_id: 987654321)
+
+sample_order = vendor.sample_orders.create(status: :pending, shopify_order_id: 121212)
+sample_order.samples << sample1

@@ -10,26 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180520031019) do
+ActiveRecord::Schema.define(version: 20180522154024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "partnerships", force: :cascade do |t|
-    t.bigint "vendor_shop_id", null: false
-    t.bigint "supplier_shop_id", null: false
+    t.bigint "vendor_id", null: false
+    t.bigint "supplier_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["supplier_shop_id"], name: "index_partnerships_on_supplier_shop_id"
-    t.index ["vendor_shop_id", "supplier_shop_id"], name: "index_partnerships_on_vendor_shop_id_and_supplier_shop_id", unique: true
-    t.index ["vendor_shop_id"], name: "index_partnerships_on_vendor_shop_id"
+    t.index ["supplier_id"], name: "index_partnerships_on_supplier_id"
+    t.index ["vendor_id", "supplier_id"], name: "index_partnerships_on_vendor_id_and_supplier_id", unique: true
+    t.index ["vendor_id"], name: "index_partnerships_on_vendor_id"
   end
 
   create_table "partnerships_samples", id: false, force: :cascade do |t|
-    t.bigint "partnership_id"
-    t.bigint "sample_id"
-    t.index ["partnership_id"], name: "index_partnerships_samples_on_partnership_id"
-    t.index ["sample_id"], name: "index_partnerships_samples_on_sample_id"
+    t.bigint "partnership_id", null: false
+    t.bigint "sample_id", null: false
+  end
+
+  create_table "sample_orders", force: :cascade do |t|
+    t.integer "status", null: false
+    t.bigint "shopify_order_id", null: false
+    t.bigint "shop_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_sample_orders_on_shop_id"
+    t.index ["status"], name: "index_sample_orders_on_status"
+  end
+
+  create_table "sample_orders_samples", id: false, force: :cascade do |t|
+    t.bigint "sample_id", null: false
+    t.bigint "sample_order_id", null: false
   end
 
   create_table "samples", force: :cascade do |t|
@@ -47,6 +60,7 @@ ActiveRecord::Schema.define(version: 20180520031019) do
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
-  add_foreign_key "partnerships", "shops", column: "supplier_shop_id"
-  add_foreign_key "partnerships", "shops", column: "vendor_shop_id"
+  add_foreign_key "partnerships", "shops", column: "supplier_id"
+  add_foreign_key "partnerships", "shops", column: "vendor_id"
+  add_foreign_key "sample_orders", "shops"
 end
