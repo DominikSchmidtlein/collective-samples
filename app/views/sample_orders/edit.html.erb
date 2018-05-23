@@ -1,0 +1,11 @@
+<h1>FREE Samples</h1>
+<%= form_for @sample_order, url: sample_order_path(@sample_order), html: {method: :put} do |f| %>
+  <%= f.collection_check_boxes(:sample_ids, @samples, Proc.new { |s| s[:id] }, Proc.new { |s| s[:title] }) do |b| %>
+    <div>
+      <%= image_tag(b.object[:img_src], width: '400', height: 'auto') %>
+      <h2><%= b.text %></h2>
+      <%= b.check_box %>
+    </div>
+  <% end %>
+  <%= f.submit "Get FREE sample" %>
+<% end %>

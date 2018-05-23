@@ -1,11 +1,13 @@
 <h1>FREE Samples</h1>
-<% @products.each do |p| %>
-  <div>
-    <%= image_tag(p.image.src, width: '400', height: 'auto') %>
-    <h2><%= p.title %></h2>
-    <p><%= p.body_html %></p>
-  </div>
-  <br>
+<%= form_for @sample_order, url: submit_sample_order_url(@sample_order), html: {method: :post} do |f| %>
+  <%= f.collection_check_boxes(:sample_ids, @samples, Proc.new { |s| s[:id] }, Proc.new { |s| s[:title] }) do |b| %>
+    <div>
+      <%= image_tag(b.object[:img_src], width: '400', height: 'auto') %>
+      <h2><%= b.text %></h2>
+      <%= b.check_box %>
+    </div>
+  <% end %>
+  <%= f.submit "Get FREE sample" %>
 <% end %>
 <pre>
   Params : <%= params.to_json %>
