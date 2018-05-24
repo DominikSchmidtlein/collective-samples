@@ -38,6 +38,13 @@ class SampleOrdersController < ApplicationController
     @sample_order = SampleOrder.find(params[:id])
     @sample_order.status = :submitted
     if @sample_order.update!(sample_order_params)
+      shop_session = ShopifyApp::SessionRepository.retrieve(@sample_order.shop_id)
+      ShopifyAPI::Base.activate_session(shop_session)
+
+      order = ShopifyAPI::Order.find(@sample_order.shopify_order_id)
+      order.attributes['note'] = Time.now.getutc.to_s
+      order.save!
+
       redirect_to edit_sample_order_path(@sample_order)
     else
       render status: 500, file: 'public/500.html'
