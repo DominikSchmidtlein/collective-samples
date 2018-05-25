@@ -6,4 +6,7 @@ ShopifyApp.configure do |config|
   config.embedded_app = true
   config.after_authenticate_job = false
   config.session_repository = Shop
+  config.webhooks = [
+    {topic: 'orders/create', address: 'https://661762ed.ngrok.io/webhooks/orders_create', format: 'json'},
+  ]
 end
