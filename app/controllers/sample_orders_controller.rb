@@ -36,7 +36,7 @@ class SampleOrdersController < ApplicationController
       ShopifyAPI::Base.activate_session(shop_session)
 
       order = ShopifyAPI::Order.find(@sample_order.shopify_order_id)
-      order.attributes['note'] = Time.now.getutc.to_s
+      order.attributes['note'] = sample_order_path(@sample_order)
       order.save!
 
       redirect_to sample_order_path(@sample_order)
