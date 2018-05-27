@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'
 
-  resources :sample_orders, only: [:edit, :update]
+  resources :sample_orders, only: [:show, :edit, :update]
 
   namespace :app_proxy do
     root action: 'index'

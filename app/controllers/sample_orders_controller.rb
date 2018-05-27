@@ -1,12 +1,6 @@
 class SampleOrdersController < ApplicationController
-  def create
-    vendor_session = ShopifyApp::SessionRepository.retrieve(params[:vendor_id])
-    ShopifyAPI::Base.activate_session(vendor_session)
-
-    order = Order.find(params[:shopify_order_id])
-    order.attributes = order.attributes.merge({'note': Time.now.getutc.to_s })
-    order.save!
-    redirect_to app_proxy_root_path
+  def show
+    @sample_order = SampleOrder.find(params[:id])
   end
 
   def edit
@@ -45,7 +39,7 @@ class SampleOrdersController < ApplicationController
       order.attributes['note'] = Time.now.getutc.to_s
       order.save!
 
-      redirect_to edit_sample_order_path(@sample_order)
+      redirect_to sample_order_path(@sample_order)
     else
       render status: 500, file: 'public/500.html'
     end

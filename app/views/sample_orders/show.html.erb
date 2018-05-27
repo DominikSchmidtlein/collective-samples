@@ -1,0 +1,12 @@
+<h1>Sample Order</h1>
+
+<p>Shop: <%= @sample_order.shop.shopify_domain %></p>
+<p>Sample Order Status: <%= @sample_order.status %></p>
+<p>Shopify Order ID: <%= @sample_order.shopify_order_id %></p>
+
+<h2>Sample(s)</h2>
+<% @sample_order.samples.each do |sample| %>
+  <div>
+    <p>Shopify Product ID: <%= sample.shopify_product_id %></p>
+  </div>
+<% end %>
